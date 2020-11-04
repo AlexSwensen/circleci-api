@@ -1,3 +1,12 @@
-it("should work", () => {
-  expect(true).not.toBeFalsy();
+import Circle from "./index";
+describe("Circle Class", () => {
+  describe("init function", () => {
+    it("should return a new instance of Circle Class", () => {
+      const circleInstance = Circle.init({
+        token: "my token",
+      });
+      expect(circleInstance).toBeDefined();
+      expect(circleInstance instanceof Circle).toBeTruthy();
+    });
+  });
 });
