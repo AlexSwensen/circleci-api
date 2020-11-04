@@ -1,0 +1,21 @@
+jobs:
+  test:
+    docker:
+      - image: "cimg/base:stable"
+    steps:
+      - checkout
+      - node/install:
+          install-yarn: true
+      - node/install-packages:
+          pkg-manager: yarn
+      - run:
+          name: Run YARN tests
+          command: yarn run test
+
+orbs:
+  node: circleci/node@4.1.0
+version: 2.1
+workflows:
+  test_my_app:
+    jobs:
+      - test
