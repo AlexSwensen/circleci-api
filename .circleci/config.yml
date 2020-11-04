@@ -6,16 +6,38 @@ executors:
 orbs:
   node: circleci/node@4.1.0
 jobs:
-  test:
+  checkout-code:
     executor: "normal"
     steps:
       - checkout
+      - restore_cache:
+          key: v1-yarn-cache-{{ .Branch }}-{{checksum "yarn.lock"}}
+
       - run: yarn
+
+      - save_cache:
+          key: v1-yarn-cache-{{ .Branch }}-{{checksum "yarn.lock"}}
+          paths:
+            - node_modules/
+
+      - persist_to_workspace:
+          root: /home/circleci
+          paths:
+            - project/
+
+  test:
+    executor: "normal"
+    steps:
+      - attach_workspace:
+          at: /home/circleci
       - run:
           name: Run YARN tests
           command: yarn run test
 
 workflows:
-  test_my_app:
+  branch-build:
     jobs:
-      - test
+      - checkout-code
+      - test:
+          requires:
+            - checkout-code
