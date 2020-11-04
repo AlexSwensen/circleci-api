@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "description": "A Node utility to interact with the CircleCi API in JavaScript or TypeScript",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "start": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/index.ts",
     "test": "jest --forceExit",
