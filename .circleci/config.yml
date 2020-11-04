@@ -33,6 +33,10 @@ jobs:
       - run:
           name: Run YARN tests
           command: yarn run test
+      - store_test_results:
+          path: "coverage/clover.xml"
+      - store_artifacts:
+          path: "coverage/"
 
 workflows:
   branch-build:
