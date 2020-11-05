@@ -1,7 +1,7 @@
 import { VCSProvider } from "./vcs";
 
 export interface ISlugParams {
-  vcs: VCSProvider;
+  vcs?: VCSProvider;
   orgName: string;
   repoName?: string;
 }
