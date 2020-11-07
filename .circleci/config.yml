@@ -32,15 +32,11 @@ jobs:
           at: /home/circleci
       - run:
           name: Run YARN tests
-          command: yarn run test
-          environment:
-            JEST_JUNIT_OUTPUT_DIR: ./reports/junit/
+          command: yarn run test && mv ./junit.xml coverage/junit.xml
       - store_test_results:
-          path: ./reports/junit/
+          path: ./coverage
       - store_artifacts:
           path: "coverage/"
-      - store_artifacts:
-          path: ./reports/junit/
 
 workflows:
   branch-build:
