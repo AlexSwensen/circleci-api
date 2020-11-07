@@ -1,3 +1,6 @@
 coverage/
 dist/**/*.map
 docs/
+# reports
+reports/
+junit.xml

@@ -3,4 +3,5 @@ module.exports = {
   testEnvironment: "node",
   verbose: true,
   collectCoverageFrom: ["src/**/*.{ts, tsx}"],
+  reporters: ["default", "jest-junit"],
 };
