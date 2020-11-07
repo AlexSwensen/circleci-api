@@ -32,7 +32,7 @@ jobs:
           at: /home/circleci
       - run:
           name: Run YARN tests
-          command: yarn run test && mv ./junit.xml coverage/junit.xml
+          command: yarn run test
       - store_test_results:
           path: ./coverage
       - store_artifacts:
