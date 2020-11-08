@@ -1,4 +1,4 @@
-import { Circle } from "./index";
+import { Circle } from "../Circle/index";
 describe("Circle instance", () => {
   it("should have a token getter", () => {
     const token = "asdf1234";

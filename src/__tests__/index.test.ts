@@ -1,4 +1,4 @@
-import Circle from "./index";
+import Circle from "../index";
 describe("Circle Class", () => {
   describe("init function", () => {
     it("should return a new instance of Circle Class", () => {
