@@ -4,6 +4,7 @@
   "description": "A Node utility to interact with the CircleCi API in JavaScript or TypeScript",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "sideEffects": false,
   "scripts": {
     "start": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/index.ts",
     "test": "jest --forceExit --collect-coverage --coverage-provider=v8 && mv ./junit.xml coverage/junit.xml",
@@ -25,6 +26,7 @@
   "homepage": "https://github.com/AlexSwensen/circleci-api#readme",
   "devDependencies": {
     "@types/jest": "^26.0.15",
+    "@types/js-base64": "^3.0.0",
     "@types/node": "^14.14.6",
     "@types/node-fetch": "^2.5.7",
     "@typescript-eslint/eslint-plugin": "^4.6.1",
@@ -43,7 +45,8 @@
     "typescript": "^4.0.5"
   },
   "dependencies": {
-    "node-fetch": "^2.6.1"
+    "cross-fetch": "^3.0.6",
+    "js-base64": "^3.6.0"
   },
   "volta": {
     "node": "14.15.0",

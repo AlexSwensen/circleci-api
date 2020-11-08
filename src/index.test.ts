@@ -4,6 +4,7 @@ describe("Circle Class", () => {
     it("should return a new instance of Circle Class", () => {
       const circleInstance = Circle.init({
         token: "my token",
+        orgName: "my-org",
       });
       expect(circleInstance).toBeDefined();
       expect(circleInstance instanceof Circle).toBeTruthy();
