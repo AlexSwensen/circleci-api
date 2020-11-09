@@ -1,6 +1,5 @@
-import fetch from "cross-fetch";
+import fetch, { Response } from "cross-fetch";
 import { Base64 } from "js-base64";
-import { job } from "../job";
 import { ISlugParams, Slug } from "../utils/Slug";
 export interface ICircleParams extends ISlugParams {
   token: string;
@@ -33,13 +32,21 @@ export class Circle {
     this._circleApiUrl = circleApiUrl;
   }
 
-  private _apiFetch(url: string) {
-    return fetch(url, {
+  private _apiFetch(
+    url: string,
+    requestParams: RequestInit = {}
+  ): Promise<Response> {
+    const fetchParams: RequestInit = {
       method: "GET",
       headers: {
         Authorization: `Basic ${Base64.encode(`${this._token}:`)}`,
       },
-    });
+    };
+    return fetch(url, { ...fetchParams, ...requestParams });
+  }
+
+  private _validSlug(slug?: Slug): Slug {
+    return slug || this._slug;
   }
 
   get token(): string {
@@ -50,11 +57,40 @@ export class Circle {
     this._token = val;
   }
 
-  public async me(): Promise<unknown> {
+  /**
+   * gets current user the token is associated with
+   */
+  public async me(): Promise<Response> {
     const url = `${this._circleApiUrl}/me`;
     const resp = await this._apiFetch(url);
-    return await resp.json();
+    return resp;
   }
 
-  public job = job;
+  /**
+   * All job methods are in preview subject to change according to CircleCI's V2 API
+   * https://circleci.com/docs/api/v2/#tag/Job
+   *
+   */
+  public job = {
+    get: async (jobNumber: number, projectSlug?: Slug): Promise<Response> => {
+      const slug: string = this._validSlug(projectSlug).projectSlug;
+
+      const resp = await this._apiFetch(
+        `${this._circleApiUrl}/project/${slug}/job/${jobNumber}`
+      );
+      return resp;
+    },
+    cancel: async (
+      jobNumber: number,
+      projectSlug?: Slug
+    ): Promise<Response> => {
+      const slug: string = this._validSlug(projectSlug).projectSlug;
+
+      const resp = await this._apiFetch(
+        `${this._circleApiUrl}/project/${slug}/job/${jobNumber}`,
+        { method: "POST" }
+      );
+      return resp;
+    },
+  };
 }

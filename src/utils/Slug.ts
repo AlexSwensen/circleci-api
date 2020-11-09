@@ -1,6 +1,11 @@
 import { VCSProvider } from "./vcs";
 
 export interface ISlugParams {
+  /**
+   * vcs = Version Control System.
+   * CircleCI supports both github and bitbucket.
+   * defaults to github (`gh`) if done is defined.
+   */
   vcs?: VCSProvider;
   orgName: string;
   repoName?: string;
