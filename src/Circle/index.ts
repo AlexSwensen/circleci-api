@@ -80,6 +80,11 @@ export class Circle {
       );
       return resp;
     },
+    /**
+     * Cancels a job of a given number.
+     * Cancels it for the given project if specified,
+     * otherwise it will cancel the job number of the project the cli was initialized with.
+     */
     cancel: async (
       jobNumber: number,
       projectSlug?: Slug
